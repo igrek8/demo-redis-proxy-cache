@@ -1,0 +1,19 @@
+version: "3.4"
+
+services:
+  web:
+    image: redis-proxy-engine
+    build: .
+    environment:
+      NODE_ENV: development
+    ports:
+      - 8080:8080
+      - 9229:9229
+    command: node --inspect=0.0.0.0:9229 bin/www
+    env_file: .env
+    depends_on:
+      - redis
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
